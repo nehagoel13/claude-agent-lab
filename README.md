@@ -1,2 +1,2 @@
 # playing-withAI
-Playing with ClaudeCode
+claude-agent-lab
