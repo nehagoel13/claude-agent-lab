@@ -54,12 +54,12 @@ You are generating comprehensive documentation for two audiences: developers and
    - Follow structure from SKILL_DOC_DEVELOPER.md
    - Include:
      - Architecture overview
-     - Setup instructions
+    # - Setup instructions
      - Code structure
      - API documentation
      - Testing guide
-     - Deployment guide
-     - Troubleshooting
+     # - Deployment guide
+     # - Troubleshooting
 
 4. **Update if exists, create if new**
    - If DOCUMENTATION_DEVELOPER.md exists, update with latest changes
@@ -95,20 +95,31 @@ You are generating comprehensive documentation for two audiences: developers and
    - If new, create from scratch
    - Preserve custom sections marked with `<!-- CUSTOM -->`
 
-### Phase 4: Summary
+   ### Phase 4: Generate HTML Versions
+Convert Markdown to HTML
+
+Use pandoc or a similar CLI tool to create portable versions for stakeholders.
+
+# Generate Developer HTML
+   pandoc DOCUMENTATION_DEVELOPER.md -o DOCUMENTATION_DEVELOPER.html --self-contained --metadata title="Developer Docs"
+   
+   # Generate PM HTML
+   pandoc DOCUMENTATION_PM.md -o DOCUMENTATION_PM.html --self-contained --metadata title="Product Management Docs"
+
+### Phase 5: Summary
 
 After generating both documents, provide a summary:
 ````markdown
 ## Documentation Generated ✅
 
-### DOCUMENTATION_DEVELOPER.md
-- [Updated/Created]
-- Sections: [count]
+### DOCUMENTATION Documentation
+- **Markdown:** DOCUMENTATION_DEVELOPER.md [Updated/Created]
+- **HTML:** DOCUMENTATION_DEVELOPER.html [Generated]
 - Key updates: [summary]
 
-### DOCUMENTATION_PM.md
-- [Updated/Created]
-- Sections: [count]
+### Product Manager Documentation
+- **Markdown:** DOCUMENTATION_PM.md [Updated/Created]
+- **HTML:** DOCUMENTATION_PM.html [Generated]
 - Key updates: [summary]
 
 ### Next Steps
@@ -122,8 +133,8 @@ After generating both documents, provide a summary:
 
 ### For Developer Documentation
 - Be comprehensive with technical details
-- Include actual code examples from the repo
-- Document all setup steps
+# - Include actual code examples from the repo
+# - Document all setup steps
 - Explain architecture decisions
 - Keep API docs updated
 
@@ -151,4 +162,5 @@ After generation:
 git add DOCUMENTATION_DEVELOPER.md DOCUMENTATION_PM.md
 git commit -m "docs: update documentation"
 ````
+
 

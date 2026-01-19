@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Developer Documentation - claude-agent-lab</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Developer Documentation - claude-agent-lab</h1>
+</header>
+<h1 id="claude-agent-lab---technical-documentation">claude-agent-lab -
+Technical Documentation</h1>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<p>This repository is an experimental lab for exploring and developing
+Claude Code capabilities, including custom commands and skills.</p>
+<h3 id="system-architecture">System Architecture</h3>
+<ul>
+<li><strong>Type</strong>: Claude Code experimental workspace</li>
+<li><strong>Structure</strong>: Configuration-driven development
+environment</li>
+<li><strong>Key Components</strong>:
+<ul>
+<li>Custom slash commands (.claude/commands/)</li>
+<li>Reusable skills (.claude/skills/)</li>
+<li>Project configuration (CLAUDE.md)</li>
+</ul></li>
+</ul>
+<h3 id="design-patterns">Design Patterns</h3>
+<ul>
+<li><strong>Skill-based architecture</strong>: Modular, reusable AI
+capabilities defined as skills</li>
+<li><strong>Command-driven workflows</strong>: Custom slash commands for
+common tasks</li>
+<li><strong>Documentation-as-code</strong>: Skills that generate and
+maintain documentation</li>
+</ul>
+<h3 id="key-architectural-decisions">Key Architectural Decisions</h3>
+<ul>
+<li>Use <code>.claude/</code> directory for all Claude Code
+configurations</li>
+<li>Separate commands from skills for clarity</li>
+<li>Use markdown for all command and skill definitions</li>
+</ul>
+<h2 id="tech-stack">Tech Stack</h2>
+<ul>
+<li><strong>Platform</strong>: Claude Code CLI</li>
+<li><strong>Configuration</strong>: Markdown-based skill and command
+definitions</li>
+<li><strong>Version Control</strong>: Git</li>
+<li><strong>Documentation Tools</strong>: Pandoc (for HTML
+generation)</li>
+</ul>
+<h2 id="development-environment-setup">Development Environment
+Setup</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Claude Code CLI installed</li>
+<li>Git</li>
+<li>Pandoc (optional, for HTML documentation generation)</li>
+</ul>
+<h3 id="installation-steps">Installation Steps</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clone repository</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="pp">[</span><span class="ss">repository</span><span class="pp">-</span><span class="ss">url</span><span class="pp">]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> claude-agent-lab</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify Claude Code installation</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--version</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The .claude directory is already configured</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Commands and skills are ready to use</span></span></code></pre></div>
+<h3 id="configuration">Configuration</h3>
+<h4 id="claude.md">CLAUDE.md</h4>
+<p>Project-level instructions that Claude Code reads automatically: -
+Defines project context - Sets behavioral rules (e.g., check docs/
+folder) - Provides guidelines for Claude</p>
+<h4 id="claudecommands">.claude/commands/</h4>
+<p>Custom slash commands that can be invoked in Claude Code: -
+<code>generate-docs.md</code>: Generates comprehensive documentation</p>
+<h4 id="claudeskills">.claude/skills/</h4>
+<p>Reusable AI capabilities: - <code>doc-developer/</code>: Developer
+documentation generation skill - <code>doc-pm/</code>: Product manager
+documentation generation skill</p>
+<h2 id="project-structure">Project Structure</h2>
+<pre><code>claude-agent-lab/
+├── .claude/
+│   ├── commands/
+│   │   └── generate-docs.md       # Custom slash command
+│   ├── skills/
+│       ├── doc-developer/
+│       │   ├── SKILL.md           # Skill entry point
+│       │   └── SKILL_DOC_DEVELOPER.md  # Documentation guidelines
+│       └── doc-pm/
+│           ├── SKILL.md           # Skill entry point
+│           └── SKILL_DOC_PM.md    # Documentation guidelines
+├── CLAUDE.md                      # Project instructions
+└── README.md                      # Project overview</code></pre>
+<h3 id="directory-descriptions">Directory Descriptions</h3>
+<ul>
+<li><strong><code>.claude/commands/</code></strong>: Contains markdown
+files defining custom slash commands</li>
+<li><strong><code>.claude/skills/</code></strong>: Contains reusable
+skill modules with their own configurations</li>
+<li><strong>Root directory</strong>: Project-level configuration and
+documentation</li>
+</ul>
+<h2 id="custom-commands">Custom Commands</h2>
+<h3 id="generate-docs">/generate-docs</h3>
+<p>Generates comprehensive documentation for both developers and product
+managers.</p>
+<p><strong>Usage:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/generate-docs</span></span></code></pre></div>
+<p><strong>Process:</strong> 1. Analyzes repository structure and git
+history 2. Generates DOCUMENTATION_DEVELOPER.md using doc-developer
+skill 3. Generates DOCUMENTATION_PM.md using doc-pm skill 4. Creates
+HTML versions using pandoc 5. Provides summary of generated
+documentation</p>
+<p><strong>Output Files:</strong> -
+<code>DOCUMENTATION_DEVELOPER.md</code>: Technical documentation -
+<code>DOCUMENTATION_PM.md</code>: Product documentation -
+<code>DOCUMENTATION_DEVELOPER.html</code>: Portable HTML version
+(developer) - <code>DOCUMENTATION_PM.html</code>: Portable HTML version
+(PM)</p>
+<h2 id="skills">Skills</h2>
+<h3 id="doc-developer">doc-developer</h3>
+<p><strong>Location</strong>:
+<code>.claude/skills/doc-developer/</code></p>
+<p><strong>Purpose</strong>: Generates technical documentation for
+software engineers.</p>
+<p><strong>Key Features:</strong> - Analyzes codebase architecture -
+Documents APIs, modules, and data flows - Includes setup and deployment
+instructions - Provides code examples and technical details</p>
+<p><strong>Guidelines</strong>: Defined in
+<code>SKILL_DOC_DEVELOPER.md</code></p>
+<p><strong>Invocation:</strong> - Directly via Skill tool -
+Automatically via <code>/generate-docs</code> command</p>
+<h3 id="doc-pm">doc-pm</h3>
+<p><strong>Location</strong>: <code>.claude/skills/doc-pm/</code></p>
+<p><strong>Purpose</strong>: Generates product documentation for product
+managers and stakeholders.</p>
+<p><strong>Key Features:</strong> - Focuses on product features and
+capabilities - Documents user-facing functionality - Tracks releases and
+changes - Non-technical, business-focused language</p>
+<p><strong>Guidelines</strong>: Defined in
+<code>SKILL_DOC_PM.md</code></p>
+<p><strong>Invocation:</strong> - Directly via Skill tool -
+Automatically via <code>/generate-docs</code> command</p>
+<h2 id="development-workflow">Development Workflow</h2>
+<h3 id="creating-a-new-custom-command">Creating a New Custom
+Command</h3>
+<ol type="1">
+<li><strong>Create command file</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new command in .claude/commands/</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> .claude/commands/my-command.md</span></code></pre></div>
+<ol start="2" type="1">
+<li><strong>Define command structure</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Brief description of what the command does</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">allowed-tools:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">  - Read</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">  - Write</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">  - Bash</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Command Name</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Detailed instructions for Claude on how to execute this command</span><span class="co">]</span></span></code></pre></div>
+<ol start="3" type="1">
+<li><strong>Test the command</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In Claude Code</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/my-command</span></span></code></pre></div>
+<ol start="4" type="1">
+<li><strong>Commit the command</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .claude/commands/my-command.md</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;feat: add my-command custom command&quot;</span></span></code></pre></div>
+<h3 id="creating-a-new-skill">Creating a New Skill</h3>
+<ol type="1">
+<li><strong>Create skill directory</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude/skills/my-skill</span></code></pre></div>
+<ol start="2" type="1">
+<li><strong>Create SKILL.md entry point</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># My Skill</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>This skill <span class="co">[</span><span class="ot">does something specific</span><span class="co">]</span>.</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Instructions</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Detailed instructions for Claude</span><span class="co">]</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Supporting Files</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">List any additional files</span><span class="co">]</span></span></code></pre></div>
+<ol start="3" type="1">
+<li><strong>Add supporting files</strong> (optional):</li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> .claude/skills/my-skill/SKILL_GUIDELINES.md</span></code></pre></div>
+<ol start="4" type="1">
+<li><strong>Invoke the skill</strong>:</li>
+</ol>
+<ul>
+<li>Use Skill tool in Claude Code</li>
+<li>Reference from a custom command</li>
+</ul>
+<ol start="5" type="1">
+<li><strong>Commit the skill</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .claude/skills/my-skill/</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;feat: add my-skill&quot;</span></span></code></pre></div>
+<h3 id="git-workflow">Git Workflow</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create feature branch</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/new-capability</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Make changes to commands or skills</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Commit changes</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;feat: add new capability&quot;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Push to remote</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin feature/new-capability</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create pull request</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># (Use GitHub web interface or gh CLI)</span></span></code></pre></div>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="command-design">Command Design</h3>
+<ul>
+<li>Keep commands focused on a single task</li>
+<li>Provide clear, step-by-step instructions</li>
+<li>Specify allowed tools to ensure proper permissions</li>
+<li>Include examples in the command description</li>
+</ul>
+<h3 id="skill-design">Skill Design</h3>
+<ul>
+<li>Make skills reusable and composable</li>
+<li>Separate skill logic (SKILL.md) from guidelines (SKILL_*.md)</li>
+<li>Document skill inputs and outputs</li>
+<li>Preserve custom content with markers (e.g.,
+<code>&lt;!-- CUSTOM --&gt;</code>)</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li>Keep CLAUDE.md up to date with project rules</li>
+<li>Document all custom commands and skills</li>
+<li>Use semantic commit messages</li>
+<li>Version documentation files alongside code</li>
+</ul>
+<h2 id="testing">Testing</h2>
+<h3 id="manual-testing">Manual Testing</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test custom commands</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/generate-docs</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify output files</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> DOCUMENTATION_<span class="pp">*</span>.md</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> DOCUMENTATION_<span class="pp">*</span>.html</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Review generated content</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> DOCUMENTATION_DEVELOPER.md</span></code></pre></div>
+<h3 id="validation-checklist">Validation Checklist</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Custom commands execute without
+errors</label></li>
+<li><label><input type="checkbox"></input>Skills produce expected
+output</label></li>
+<li><label><input type="checkbox"></input>Generated documentation is
+accurate</label></li>
+<li><label><input type="checkbox"></input>HTML versions render
+correctly</label></li>
+<li><label><input type="checkbox"></input>Git history is clean and
+semantic</label></li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="command-not-found">Command Not Found</h3>
+<p><strong>Problem</strong>: Custom command doesn’t work when
+invoked</p>
+<p><strong>Solution</strong>: - Verify file exists:
+<code>ls -la .claude/commands/</code> - Check file naming: Must be
+<code>.md</code> extension - Restart Claude Code session - Check for
+YAML frontmatter syntax errors</p>
+<h3 id="skill-execution-errors">Skill Execution Errors</h3>
+<p><strong>Problem</strong>: Skill fails during execution</p>
+<p><strong>Solution</strong>: - Check allowed-tools in command
+definition - Verify skill files exist in <code>.claude/skills/</code> -
+Review SKILL.md for proper markdown syntax - Check Claude Code logs for
+detailed errors</p>
+<h3 id="html-generation-fails">HTML Generation Fails</h3>
+<p><strong>Problem</strong>: Pandoc fails to generate HTML files</p>
+<p><strong>Solution</strong>: - Install pandoc:
+<code>brew install pandoc</code> (macOS) - Verify pandoc installation:
+<code>pandoc --version</code> - Check markdown syntax in source files -
+Use <code>--self-contained</code> flag for portable HTML</p>
+<h3 id="git-conflicts">Git Conflicts</h3>
+<p><strong>Problem</strong>: Merge conflicts in documentation files</p>
+<p><strong>Solution</strong>: - Regenerate documentation using
+<code>/generate-docs</code> - Preserve custom sections marked with
+<code>&lt;!-- CUSTOM --&gt;</code> - Use <code>git diff</code> to
+understand changes - Manually merge if needed</p>
+<h2 id="extending-the-lab">Extending the Lab</h2>
+<h3 id="ideas-for-new-commands">Ideas for New Commands</h3>
+<ul>
+<li><code>/code-review</code>: Automated code review command</li>
+<li><code>/test</code>: Run project tests and analyze results</li>
+<li><code>/deploy</code>: Deployment automation command</li>
+<li><code>/analyze</code>: Codebase analysis and metrics</li>
+</ul>
+<h3 id="ideas-for-new-skills">Ideas for New Skills</h3>
+<ul>
+<li>Code quality analyzer</li>
+<li>Test generator</li>
+<li>API documentation generator</li>
+<li>Changelog generator</li>
+<li>Performance profiler</li>
+</ul>
+<h3 id="integration-points">Integration Points</h3>
+<ul>
+<li>GitHub Actions for automated documentation</li>
+<li>Pre-commit hooks for documentation validation</li>
+<li>CI/CD pipelines for skill testing</li>
+<li>Remote session sharing for collaboration</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://docs.anthropic.com/claude-code">Claude Code
+Documentation</a></li>
+<li><a href="https://docs.anthropic.com/claude-code/commands">Custom
+Commands Guide</a></li>
+<li><a href="https://docs.anthropic.com/claude-code/skills">Skills
+Documentation</a></li>
+<li><a href="https://www.conventionalcommits.org/">Git Best
+Practices</a></li>
+</ul>
+<hr />
+<p><strong>Last Updated</strong>: 2026-01-20
+<strong>Maintainer</strong>: Repository owner <strong>Version</strong>:
+1.0.0</p>
+</body>
+</html>
